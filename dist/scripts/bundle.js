@@ -47318,10 +47318,39 @@ var React = require('react');
 var AuthorApi = require('../../api/authorApi');
 
 var Authors = React.createClass({displayName: "Authors",
+    getInitialState: function(){
+        return {
+            authors: []
+        };
+    },
+    
+    componentWillMount: function(){
+        this.setState({ authors: AuthorApi.getAllAuthors() });
+    },
+    
     render: function(){
+        var createAuthorRow = function(author){
+            return (
+                React.createElement("tr", {key: author.id}, 
+                        React.createElement("td", null, React.createElement("a", {href: "/#authors/" + author.id}, author.id)), 
+                        React.createElement("td", null, author.firstName, " ", author.lastName)
+                )
+            );
+        };
+        
         return (
             React.createElement("div", null, 
-                React.createElement("h1", null, "Authors")
+                React.createElement("h1", null, "Authors"), 
+            
+                React.createElement("table", {className: "table"}, 
+                    React.createElement("thead", null, 
+                        React.createElement("th", null, "ID"), 
+                        React.createElement("th", null, "Name")
+                    ), 
+                    React.createElement("tbody", null, 
+                        this.state.authors.map(createAuthorRow, this)
+                    )
+                )
             )
         );
     }
@@ -47339,7 +47368,9 @@ var Header = React.createClass({displayName: "Header",
         return (
             React.createElement("nav", {className: "navbar navbar-default"}, 
                 React.createElement("div", {className: "container-fluid"}, 
-                    React.createElement("a", {href: "/", className: "navbar-brand"}, "IMG"), 
+                    React.createElement("a", {href: "/", className: "navbar-brand"}, 
+                        React.createElement("img", {src: "/images/pluralsight-logo.png"})
+                    ), 
                     React.createElement("ul", {className: "nav navbar-nav"}, 
                         React.createElement("li", null, React.createElement("a", {href: "/"}, "Home")), 
                         React.createElement("li", null, React.createElement("a", {href: "/#authors"}, "Authors")), 
@@ -47379,7 +47410,6 @@ var Authors = require('./components/authors/authorPage');
 var About = require('./components/about/aboutPage');
 var Header = require('./components/common/header');
 
-
 (function(win){
     "use strict"
     
@@ -47397,7 +47427,8 @@ var Header = require('./components/common/header');
 
             return (
                 React.createElement("div", null, 
-                    React.createElement(Header, null)
+                    React.createElement(Header, null), 
+                    React.createElement(Child, null)
                 )
             );
         }
@@ -47410,8 +47441,6 @@ var Header = require('./components/common/header');
 
     win.addEventListener('hashchange', render);
     render();
-
-
-    React.render(React.createElement(Home, null), document.getElementById('app'));    
+        
 })(window);
 },{"./components/about/aboutPage":161,"./components/authors/authorPage":162,"./components/common/header":163,"./components/homePage":164,"jquery":1,"react":158}]},{},[165]);

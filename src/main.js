@@ -5,7 +5,6 @@ var Authors = require('./components/authors/authorPage');
 var About = require('./components/about/aboutPage');
 var Header = require('./components/common/header');
 
-
 (function(win){
     "use strict"
     
@@ -24,6 +23,7 @@ var Header = require('./components/common/header');
             return (
                 <div>
                     <Header/>
+                    <Child/>
                 </div>
             );
         }
@@ -36,7 +36,5 @@ var Header = require('./components/common/header');
 
     win.addEventListener('hashchange', render);
     render();
-
-
-    React.render(<Home/>, document.getElementById('app'));    
+        
 })(window);

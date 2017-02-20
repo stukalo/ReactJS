@@ -2,6 +2,7 @@
   "ecmaFeatures": {
     "jsx": true
   },
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "node": true,
@@ -14,7 +15,8 @@
 	"no-unused-vars": 0,
 	"no-nuderscore-dangle": 0,
 	"no-alert": 0,
-	"no-lone-blocks": 0
+	"no-lone-blocks": 0,
+    "no-undef": "error"
   },
   "globals": {
     "JQuery": true,
